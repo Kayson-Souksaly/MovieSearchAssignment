@@ -3,6 +3,7 @@ package com.example.moviesearchassignment.Models;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,13 +15,18 @@ import com.example.moviesearchassignment.databinding.RecyclerViewRowBinding;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+/**
+ * Recycler view adapter
+ * */
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements MovieRecyclerViewInterface{
+    private final MovieRecyclerViewInterface movieRecyclerViewInterface;
     private final Context context;
     private final List<MovieExtraInfo> movieByIdList;
 
-    public MovieAdapter(Context context, List<MovieExtraInfo> movieList) {
+    public MovieAdapter(Context context, List<MovieExtraInfo> movieList, MovieRecyclerViewInterface movieRecyclerViewInterface) {
         this.context = context;
         this.movieByIdList = movieList;
+        this.movieRecyclerViewInterface = movieRecyclerViewInterface;
     }
 
 
@@ -30,7 +36,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         RecyclerViewRowBinding binding = RecyclerViewRowBinding.inflate(LayoutInflater.from(parent.getContext())
         ,parent,
         false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, movieRecyclerViewInterface);
     }
 
     @Override
@@ -38,14 +44,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         MovieExtraInfo movieById = movieByIdList.get(position);
         Log.d("TEST", movieById.getTitle());
 
-        // Set the correct fields
+//      Set the correct fields
         holder.binding.titleView.setText(movieById.getTitle() != null ? movieById.getTitle() : "No title");
         holder.binding.yearView.setText(movieById.getYear() != null ? "Year: " + movieById.getYear() : "Year: N/A");
         holder.binding.studioView.setText(movieById.getStudio() != null ? "Studio: " + movieById.getStudio() : "Studio: N/A");
         holder.binding.ratingView.setText(movieById.getImdbRating() != null ? "Rating: " + movieById.getImdbRating() : "Rating: N/A");
 
-        // Poster
+//      Poster
         if (movieById.getPoster() != null && !movieById.getPoster().equals("N/A")) {
+//          Glide allows to get images from a link,
+//          using the the placeholder method as load a placeholder while retrieving
             Glide.with(context)
                     .load(movieById.getPoster())
                     .placeholder(R.drawable.placeholder)
@@ -67,14 +75,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         Log.d("RECEIVED", movieByIdList.toString());
     }
 
+    @Override
+    public void onMovieClick(int position) {
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    }
 
-        public Object Log;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerViewRowBinding binding;
-        public ViewHolder (@NonNull RecyclerViewRowBinding binding) {
+        public ViewHolder (@NonNull RecyclerViewRowBinding binding, MovieRecyclerViewInterface movieRecyclerViewInterface) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (movieRecyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION){
+                            movieRecyclerViewInterface.onMovieClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

@@ -3,6 +3,9 @@ package com.example.moviesearchassignment.Models;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Retrofit client to create API service instance.
+ */
 public class RetrofitClient {
     private static final String BASE_URL = "https://www.omdbapi.com/";
     private static Retrofit retrofit;

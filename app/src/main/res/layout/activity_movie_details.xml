@@ -1,53 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sailorBlue"
+    android:background="#002B5B"
     android:padding="16dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
+        <!-- Movie Poster -->
         <ImageView
             android:id="@+id/posterView"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
-            android:contentDescription="Movie Poster" />
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/placeholder" />
 
+        <!-- Title -->
         <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/titleView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:text="Superman, Spiderman or Batman"
             android:textColor="@color/mint"
-            android:layout_marginTop="16dp" />
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/posterView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Year -->
         <TextView
-            android:id="@+id/releasedTextView"
+            android:id="@+id/releasedView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Released: 01 Jun 2011"
             android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/titleView"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp" />
 
+        <!-- Rated -->
         <TextView
-            android:id="@+id/imdbTextView"
+            android:id="@+id/ratedView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Rated: Not Rated"
             android:textColor="@color/white"
-            android:layout_marginTop="8dp" />
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/releasedView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
 
+        <!-- Runtime -->
+        <TextView
+            android:id="@+id/runtimeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Runtime: 11 min"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/ratedView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
 
+        <!-- Genre -->
+        <TextView
+            android:id="@+id/genreView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Genre: Short, Drama"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/runtimeView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Studio -->
+        <TextView
+            android:id="@+id/studioView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Studio: N/A"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/genreView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Director -->
+        <TextView
+            android:id="@+id/directorView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Director: Tudor Giurgiu"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/studioView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Actors -->
+        <TextView
+            android:id="@+id/actorsView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Actors: Adriana Baiulescu, Zsolt Bogdan, Ovidiu Crisan"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/directorView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Description Label -->
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description:"
+            android:textColor="@color/mint"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/actorsView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Plot / Description -->
+        <TextView
+            android:id="@+id/plotView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Aron, a 5-year-old boy, together with his worried father, sets out on a journey at the end of which he wishes, like the superheroes in the comic books, to save his mother who is suffering from a heart condition."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Back Button -->
         <Button
-            android:id="@+id/backButton"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back"
             android:textColor="@color/sailorBlue"
-            android:backgroundTint="@color/mint"
-            android:layout_marginTop="24dp"/>
-    </LinearLayout>
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/plotView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/mint" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

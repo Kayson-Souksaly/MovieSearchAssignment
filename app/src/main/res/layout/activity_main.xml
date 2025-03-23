@@ -8,6 +8,8 @@
     tools:context=".View.MainActivity"
     android:background="@color/sailorBlue">
 
+
+    <!--    App Title    -->
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
@@ -26,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    SearchBar    -->
     <EditText
         android:id="@+id/searchBar"
         android:layout_width="wrap_content"
@@ -42,6 +45,7 @@
         android:background="@drawable/rounded_edittext"
         />
 
+    <!--    Search Button    -->
     <Button
         android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
@@ -54,6 +58,7 @@
         android:textColor="@color/sailorBlue"
         />
 
+    <!--    App RecyclerView    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movieRecyclerView"
         android:layout_width="0dp"

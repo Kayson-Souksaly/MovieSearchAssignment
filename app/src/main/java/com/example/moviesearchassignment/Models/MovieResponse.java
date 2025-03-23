@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Response wrapper for search results (list of movies).
+ */
 public class MovieResponse {
     @SerializedName("Search")
     private List<Movie> movies;
