@@ -49,6 +49,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements Serializa
         }
 
 //        Back button closes the activity
+//        The finish() method closes the activity and return to previous activity
         binding.backBtn.setOnClickListener(v -> finish());
 
     }

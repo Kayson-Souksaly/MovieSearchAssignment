@@ -1,4 +1,4 @@
-package com.example.moviesearchassignment.Models;
+package com.example.moviesearchassignment.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.moviesearchassignment.Models.MovieExtraInfo;
+import com.example.moviesearchassignment.Models.MovieRecyclerViewInterface;
 import com.example.moviesearchassignment.R;
 import com.example.moviesearchassignment.databinding.RecyclerViewRowBinding;
 
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * Recycler view adapter
  * */
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements MovieRecyclerViewInterface{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements MovieRecyclerViewInterface {
     private final MovieRecyclerViewInterface movieRecyclerViewInterface;
     private final Context context;
     private final List<MovieExtraInfo> movieByIdList;
