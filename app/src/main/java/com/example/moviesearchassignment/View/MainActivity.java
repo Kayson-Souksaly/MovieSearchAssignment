@@ -13,6 +13,8 @@ import com.example.moviesearchassignment.Models.MovieExtraInfo;
 import com.example.moviesearchassignment.Models.MovieRecyclerViewInterface;
 import com.example.moviesearchassignment.ViewModels.MovieViewModel;
 import com.example.moviesearchassignment.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() == null) {
+            // No user logged in, go to login
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // close MainActivity
+            return;
+        }
+        Toast.makeText(this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
