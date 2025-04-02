@@ -2,6 +2,7 @@ package com.example.moviesearchassignment.View;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
@@ -28,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,7 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn("kayson@gmail.com", "123456");
+                Log.d("TAG", "onClick: Login Button Clicked");
+                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
+                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+                signIn(email, password);
             }
         });
     }

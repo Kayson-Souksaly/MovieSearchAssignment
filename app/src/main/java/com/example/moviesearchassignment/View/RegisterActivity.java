@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class RegisterActivity extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
@@ -33,8 +35,14 @@ public class RegisterActivity extends AppCompatActivity {
         binding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Test to see if the register button works and new user is created
-                registerUser("kayson@gmail.com", "123456");
+
+//                Log and Toast for debugging
+                Log.d("TAG", "onClick: Register Button Clicked");
+                Toast.makeText(RegisterActivity.this, "User Registered:" + Objects.requireNonNull(binding.emailInput.getText()).toString(), Toast.LENGTH_SHORT).show();
+
+                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
+                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+                registerUser(email, password);
             }
         });
 
