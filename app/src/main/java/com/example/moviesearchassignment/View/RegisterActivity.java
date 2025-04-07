@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                Test to see if the register button works and new user is created
-                registerUser("kayson@gmail.com", "123456");
+                registerUser("shun@gmail.com", "123456");
             }
         });
 
