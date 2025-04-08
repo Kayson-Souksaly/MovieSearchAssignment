@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Activity for the favorite movie list
+ */
 public class FavoriteActivity extends AppCompatActivity implements MovieRecyclerViewInterface {
 
     private ActivityFavoriteListBinding binding;
@@ -60,19 +64,14 @@ public class FavoriteActivity extends AppCompatActivity implements MovieRecycler
 
         mAuth = FirebaseAuth.getInstance();
 
+//        Get the user ID
         String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
+//        Fetch favorite movies from Firestore with the user ID
         viewModel.fetchFavoriteMovies(uid);
 
         //back to MainActivity section
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FavoriteActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        binding.searchBackBtn.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -83,8 +82,24 @@ public class FavoriteActivity extends AppCompatActivity implements MovieRecycler
 
 //        Save all information of the movie being clicked
         intent.putExtra("MOVIE_INFORMATION", movieClicked);
+        intent.putExtra("DOCUMENT_ID", movieClicked.getDocumentId());
 
 //        Go to movie details activity
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+
     }
+
+//    Update the list when returning from the movie details activity
+//    when deleting a movie from the favorite list
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            viewModel.fetchFavoriteMovies(uid); // 🔄 refresh the list
+        }
+    }
+
+
 }

@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             }
         });
 
+//        Button to go to the favorite list activity
         binding.favBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);

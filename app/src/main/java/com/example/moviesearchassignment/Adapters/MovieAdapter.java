@@ -18,7 +18,7 @@ import com.example.moviesearchassignment.databinding.RecyclerViewRowBinding;
 import java.util.List;
 
 /**
- * Recycler view adapter
+ * Recycler view adapter for the movie list
  * */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements MovieRecyclerViewInterface {
     private final MovieRecyclerViewInterface movieRecyclerViewInterface;

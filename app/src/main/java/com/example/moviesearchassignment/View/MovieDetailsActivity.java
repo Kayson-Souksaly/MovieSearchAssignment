@@ -70,29 +70,39 @@ public class MovieDetailsActivity extends AppCompatActivity{
         binding.backBtn.setOnClickListener(v -> finish());
 
 
+//        On favorite button click, add the movie to the favorite list
         binding.favBtn.setOnClickListener(v -> {
-                Map<String, Object> movieMap = new HashMap<>();
-                movieMap.put("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
-                movieMap.put("title", movie.getTitle());
-                movieMap.put("released", movie.getReleased());
-                movieMap.put("rated", movie.getRated());
-                movieMap.put("runtime", movie.getRuntime());
-                movieMap.put("genre", movie.getGenre());
+
+//            Map to store the movie information and save it to the database
+            Map<String, Object> movieMap = new HashMap<>();
+            movieMap.put("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+            movieMap.put("title", movie.getTitle());
+            movieMap.put("released", movie.getReleased());
+            movieMap.put("rated", movie.getRated());
+            movieMap.put("runtime", movie.getRuntime());
+            movieMap.put("genre", movie.getGenre());
+            movieMap.put("rating", movie.getImdbRating());
+            movieMap.put("year", movie.getYear());
             movieMap.put("studio", movie.getStudio());
             movieMap.put("director", movie.getDirector());
             movieMap.put("actors", movie.getActors());
             movieMap.put("plot", movie.getPlot());
             movieMap.put("poster", movie.getPoster());
             movieMap.put("imdbID", movie.getImdbID());
+            movieMap.put("imdbRating", movie.getImdbRating());
 
+//            Make separate collection for each user by their UID
             String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
+//            Save the movie to the database
             db.collection("users")
                     .document(uid)
                     .collection("favourites")
                     .whereEqualTo("imdbID", movie.getImdbID()) // or use "imdbID"
                     .get()
                     .addOnSuccessListener(querySnapshot -> {
+
+//                        If the movie is not in the database, add it
                         if (querySnapshot.isEmpty()) {
                             db.collection("users")
                                     .document(uid)
@@ -106,6 +116,8 @@ public class MovieDetailsActivity extends AppCompatActivity{
                                         Log.e("ERROR", "Failed to add movie", e);
                                         Toast.makeText(this, "Failed to add to Favourites", Toast.LENGTH_SHORT).show();
                                     });
+
+//                            Error message if the movie is already in the database
                         } else {
                             Log.d("ERROR", "Movie already exists in favourites");
                             Toast.makeText(this, "Movie already exists in Favourites", Toast.LENGTH_SHORT).show();

@@ -41,6 +41,9 @@ public class MovieExtraInfo implements Serializable {
     @SerializedName("Plot")
     private String plot;
 
+//    Add document ID to the class
+    private String documentId;
+
     public String getTitle() {
         return title;
     }
@@ -95,5 +98,13 @@ public class MovieExtraInfo implements Serializable {
 
     public String getPlot() {
         return plot;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

@@ -12,6 +12,7 @@
 
         <!-- Movie Poster -->
         <ImageView
+            android:layout_marginTop="100dp"
             android:id="@+id/posterView"
             android:layout_width="0dp"
             android:layout_height="200dp"

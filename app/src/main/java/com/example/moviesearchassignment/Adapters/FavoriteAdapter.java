@@ -13,11 +13,13 @@ import com.bumptech.glide.Glide;
 import com.example.moviesearchassignment.Models.MovieExtraInfo;
 import com.example.moviesearchassignment.Models.MovieRecyclerViewInterface;
 import com.example.moviesearchassignment.R;
-import com.example.moviesearchassignment.View.FavoriteActivity;
 import com.example.moviesearchassignment.databinding.RecyclerViewRowBinding;
 
 import java.util.List;
 
+/**
+ * Recycler view adapter for the favorite movie list
+ * */
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> implements MovieRecyclerViewInterface {
 
     private final MovieRecyclerViewInterface movieRecyclerViewInterface;
@@ -44,9 +46,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull FavoriteAdapter.ViewHolder holder, int position) {
         MovieExtraInfo favoriteMovie = favoriteMovies.get(position);
-        Log.d("TEST", favoriteMovie.getTitle());
 
-        //      Set the correct fields
+//        Dev debugging
+        Log.d("TEST", "String of: " + String.valueOf(favoriteMovie));
+
         holder.binding.titleView.setText(favoriteMovie.getTitle() != null ? favoriteMovie.getTitle() : "No title");
         holder.binding.yearView.setText(favoriteMovie.getYear() != null ? "Year: " + favoriteMovie.getYear() : "Year: N/A");
         holder.binding.studioView.setText(favoriteMovie.getStudio() != null ? "Studio: " + favoriteMovie.getStudio() : "Studio: N/A");
@@ -75,7 +78,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         this.favoriteMovies.clear();
         this.favoriteMovies.addAll(favoriteMovies);
         notifyDataSetChanged();
-//        Test to see if the list is being updated
+
+//        Log updated list for debugging purposes
         Log.d("TEST", favoriteMovies.toString());
     }
 

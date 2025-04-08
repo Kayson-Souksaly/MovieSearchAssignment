@@ -30,6 +30,7 @@ public class FavoriteMovieViewModel extends ViewModel {
         return errorMessage;
     }
 
+//    Fetch favorite movies from the database
     public void fetchFavoriteMovies(String uid) {
         db.collection("users")
                 .document(uid)
@@ -38,8 +39,11 @@ public class FavoriteMovieViewModel extends ViewModel {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         List<MovieExtraInfo> movies = new ArrayList<>();
+
+//                        Add each movie to the list
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             MovieExtraInfo movie = doc.toObject(MovieExtraInfo.class);
+                            movie.setDocumentId(doc.getId());
                             movies.add(movie);
                         }
                         favoriteMovies.postValue(movies);
