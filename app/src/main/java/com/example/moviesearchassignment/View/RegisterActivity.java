@@ -39,9 +39,25 @@ public class RegisterActivity extends AppCompatActivity {
         binding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = Objects.requireNonNull(binding.usernameInput.getText()).toString();
-                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
-                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+//                Check if the fields are empty and if the passwords match
+                String username = binding.usernameInput.getText() != null ? binding.usernameInput.getText().toString().trim() : "";
+                String email = binding.emailInput.getText() != null ? binding.emailInput.getText().toString().trim() : "";
+                String password = binding.passwordInput.getText() != null ? binding.passwordInput.getText().toString().trim() : "";
+                String confirmPassword = binding.confirmPasswordInput.getText() != null ? binding.confirmPasswordInput.getText().toString().trim() : "";
+
+//                if the fields are empty, show a toast
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                if the passwords do not match, show a toast
+                if (!password.equals(confirmPassword)) {
+                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                register the user
                 registerUser(username, email, password);
             }
         });

@@ -18,7 +18,7 @@
             android:name=".View.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".View.MainActivity"
+            android:name=".View.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.MovieDetailsActivity" />
-        <activity android:name=".View.LoginActivity" />
+        <activity android:name=".View.MainActivity" />
         <activity android:name=".View.FavoriteActivity" />
         <activity android:name=".View.FavoriteMovieActivity" />
     </application>

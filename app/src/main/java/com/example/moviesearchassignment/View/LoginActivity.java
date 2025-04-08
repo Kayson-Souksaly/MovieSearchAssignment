@@ -48,11 +48,21 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
-                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+//                Get the email and password from the fields and remove any spaces
+                String email = binding.emailInput.getText() != null ? binding.emailInput.getText().toString().trim() : "";
+                String password = binding.passwordInput.getText() != null ? binding.passwordInput.getText().toString().trim() : "";
+
+//                Check if the fields are empty
+                if (email.isEmpty() || password.isEmpty()) {
+//                    return error message
+                    Toast.makeText(LoginActivity.this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 signIn(email, password);
             }
         });
+
     }
 
     private void signIn (String email, String password) {

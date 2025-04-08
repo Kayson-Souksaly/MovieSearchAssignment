@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             finish(); // close MainActivity
             return;
         }
-        Toast.makeText(this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
