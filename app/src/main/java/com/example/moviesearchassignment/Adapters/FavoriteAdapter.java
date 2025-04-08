@@ -38,7 +38,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         RecyclerViewRowBinding binding = RecyclerViewRowBinding.inflate(LayoutInflater.from(parent.getContext())
                 ,parent,
                 false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, movieRecyclerViewInterface);
     }
 
     @Override
@@ -86,10 +86,23 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         RecyclerViewRowBinding binding;
-        public ViewHolder(@NonNull RecyclerViewRowBinding binding) {
+        public ViewHolder (@NonNull RecyclerViewRowBinding binding, MovieRecyclerViewInterface movieRecyclerViewInterface) {
             super(binding.getRoot());
+            this.binding = binding;
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (movieRecyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if (pos != RecyclerView.NO_POSITION){
+                            movieRecyclerViewInterface.onMovieClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

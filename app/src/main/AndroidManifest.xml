@@ -29,6 +29,7 @@
         <activity android:name=".View.MovieDetailsActivity" />
         <activity android:name=".View.LoginActivity" />
         <activity android:name=".View.FavoriteActivity" />
+        <activity android:name=".View.FavoriteMovieActivity" />
     </application>
 
 </manifest>

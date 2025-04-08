@@ -69,7 +69,7 @@ public class FavoriteActivity extends AppCompatActivity implements MovieRecycler
     public void onMovieClick(int position) {
         //        get position of the movie being clicked
         MovieExtraInfo movieClicked = favoriteMovies.get(position);
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        Intent intent = new Intent(this, FavoriteMovieActivity.class);
 
 //        Save all information of the movie being clicked
         intent.putExtra("MOVIE_INFORMATION", movieClicked);
