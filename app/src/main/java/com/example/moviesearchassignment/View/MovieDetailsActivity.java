@@ -2,24 +2,41 @@ package com.example.moviesearchassignment.View;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.moviesearchassignment.Models.MovieExtraInfo;
 import com.example.moviesearchassignment.R;
 import com.example.moviesearchassignment.databinding.ActivityMovieDetailsBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
-public class MovieDetailsActivity extends AppCompatActivity implements Serializable {
+public class MovieDetailsActivity extends AppCompatActivity{
 
     private ActivityMovieDetailsBinding binding;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+
         binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -52,6 +69,56 @@ public class MovieDetailsActivity extends AppCompatActivity implements Serializa
 //        The finish() method closes the activity and return to previous activity
         binding.backBtn.setOnClickListener(v -> finish());
 
+
+        binding.favBtn.setOnClickListener(v -> {
+                Map<String, Object> movieMap = new HashMap<>();
+                movieMap.put("uid", Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+                movieMap.put("title", movie.getTitle());
+                movieMap.put("released", movie.getReleased());
+                movieMap.put("rated", movie.getRated());
+                movieMap.put("runtime", movie.getRuntime());
+                movieMap.put("genre", movie.getGenre());
+            movieMap.put("studio", movie.getStudio());
+            movieMap.put("director", movie.getDirector());
+            movieMap.put("actors", movie.getActors());
+            movieMap.put("plot", movie.getPlot());
+            movieMap.put("poster", movie.getPoster());
+            movieMap.put("imdbID", movie.getImdbID());
+
+            String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("favourites")
+                    .whereEqualTo("imdbID", movie.getImdbID()) // or use "imdbID"
+                    .get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        if (querySnapshot.isEmpty()) {
+                            db.collection("users")
+                                    .document(uid)
+                                    .collection("favourites")
+                                    .add(movieMap)
+                                    .addOnSuccessListener(documentReference -> {
+                                        Log.d("SUCCESS", "Movie added to favourites");
+                                        Toast.makeText(this, "Added to Favourites", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("ERROR", "Failed to add movie", e);
+                                        Toast.makeText(this, "Failed to add to Favourites", Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            Log.d("ERROR", "Movie already exists in favourites");
+                            Toast.makeText(this, "Movie already exists in Favourites", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("ERROR", "Failed to add movie", e);
+                        Toast.makeText(this, "Failed to add to Favourites", Toast.LENGTH_SHORT).show();
+                    });
+
+
+
+        });
     }
 
 }

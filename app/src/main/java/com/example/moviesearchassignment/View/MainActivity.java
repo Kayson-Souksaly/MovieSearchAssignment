@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 Toast.makeText(this, "Enter a movie title", Toast.LENGTH_SHORT).show();
             }
         });
+
+        binding.favBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FavoriteActivity.class);
+            startActivity(intent);
+        });
     }
 
 //    Intent listener for when the card is clicked

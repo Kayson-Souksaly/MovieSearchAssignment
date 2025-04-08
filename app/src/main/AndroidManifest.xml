@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".View.MovieDetailsActivity" />
         <activity android:name=".View.LoginActivity" />
-
-    </application>\
+        <activity android:name=".View.FavoriteActivity" />
+    </application>
 
 </manifest>
