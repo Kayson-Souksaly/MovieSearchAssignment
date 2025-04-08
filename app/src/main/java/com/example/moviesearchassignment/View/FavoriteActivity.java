@@ -17,7 +17,6 @@ import com.example.moviesearchassignment.Models.MovieRecyclerViewInterface;
 import com.example.moviesearchassignment.ViewModels.FavoriteMovieViewModel;
 import com.example.moviesearchassignment.databinding.ActivityFavoriteListBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ public class FavoriteActivity extends AppCompatActivity implements MovieRecycler
     private FavoriteAdapter adapter;
     private final List<MovieExtraInfo> favoriteMovies = new ArrayList<>();
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
 
     private FavoriteMovieViewModel viewModel;

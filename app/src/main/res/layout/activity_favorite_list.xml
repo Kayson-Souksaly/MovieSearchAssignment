@@ -5,31 +5,34 @@
     android:id="@+id/favContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sailorBlue">
+    android:background="@drawable/bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@color/sailorBlue"
         android:id="@+id/favTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_gradient">
 
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="63dp"
+            android:layout_height="wrap_content"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="2"
+            android:shadowColor="@color/charcoal"
             android:text="My Fav List"
-            android:textColor="@color/mint"
+            android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.67" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- RecyclerView -->
@@ -48,11 +51,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomLayout"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="60dp"
         android:background="@color/sailorBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <!-- Search Button -->
         <Button
@@ -60,12 +64,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
+            android:backgroundTint="@color/mint"
             android:text="Search"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/sailorBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="@color/mint"
-            android:textColor="@color/sailorBlue"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Favorites Button -->
         <Button
@@ -73,12 +77,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
+            android:backgroundTint="@color/mint"
             android:text="Favorites"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/sailorBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/mint"
-            android:textColor="@color/sailorBlue"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,7 +86,7 @@ public class MovieViewModel extends ViewModel {
             public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
 //                 Error when calling the movie list API
                 errorMessage.setValue("Something went wrong.");
-                Log.e("API_FAILURE", "API failed", t);
+                Log.e("API_FAILURE", "API failed: " + t.getMessage(), t);
             }
         });
     }

@@ -15,11 +15,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
     FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
         binding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Test to see if the register button works and new user is created
-                registerUser("shun@gmail.com", "123456");
+                String username = Objects.requireNonNull(binding.usernameInput.getText()).toString();
+                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
+                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+                registerUser(username, email, password);
             }
         });
 
@@ -47,7 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(String username, String email, String password) {
+        Log.d("tag", "registerUser: " + email + " " + password);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -56,13 +65,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(RegisterActivity.this, "Registration Successful" + user.getUid(), Toast.LENGTH_SHORT).show();
+                            String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-                            Intent intentObj = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intentObj);
+                            Map<String, Object> userMap = new HashMap<>();
+                            userMap.put("username", username);
+                            userMap.put("email", email);
 
+
+                            db.collection("users")
+                                    .document(uid)
+                                    .set(userMap)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(RegisterActivity.this, "Registered successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intentObj = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intentObj);
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(RegisterActivity.this, "Failed to save username", Toast.LENGTH_SHORT).show());
                         } else {
 
                             Log.d("tag", "createUserWithEmail:failure", task.getException());

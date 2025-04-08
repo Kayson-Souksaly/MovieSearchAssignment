@@ -1,5 +1,6 @@
 package com.example.moviesearchassignment.View;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,7 +29,9 @@ import java.util.Objects;
 public class FavoriteMovieActivity extends AppCompatActivity implements MovieRecyclerViewInterface {
 
     ActivityFavoriteDetailBinding binding;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +50,15 @@ public class FavoriteMovieActivity extends AppCompatActivity implements MovieRec
 
 
 //        Set fields from database
+        assert movie != null;
         binding.titleView.setText(movie.getTitle());
-        binding.releasedView.setText(movie.getReleased());
-        binding.ratedView.setText(movie.getRated());
-        binding.runtimeView.setText(movie.getRuntime());
-        binding.genreView.setText(movie.getGenre());
-        binding.studioView.setText(movie.getStudio());
-        binding.directorView.setText(movie.getDirector());
-        binding.actorsView.setText(movie.getActors());
+        binding.releasedView.setText("Released: " + movie.getReleased());
+        binding.ratedView.setText("Rated: " + movie.getRated());
+        binding.runtimeView.setText("Runtime: " + movie.getRuntime());
+        binding.genreView.setText("Genre: " + movie.getGenre());
+        binding.studioView.setText("Studio: " + (movie.getStudio() != null ? movie.getStudio() : "N/A"));
+        binding.directorView.setText("Director: " + movie.getDirector());
+        binding.actorsView.setText("Actors: " + movie.getActors());
         binding.plotView.setText(movie.getPlot());
 
         String posterUrl = movie.getPoster();
@@ -102,8 +106,7 @@ public class FavoriteMovieActivity extends AppCompatActivity implements MovieRec
 //        On delete button click, delete the movie from the database
         binding.deleteBtn.setOnClickListener(v -> {
             assert documentId != null;
-            FirebaseFirestore.getInstance()
-                    .collection("users")
+            db.collection("users")
                     .document(uid)
                     .collection("favourites")
                     .document(documentId)
@@ -124,14 +127,13 @@ public class FavoriteMovieActivity extends AppCompatActivity implements MovieRec
     public void updatePlot(String newPlot, String documentId, String uid) {
 //        Update the plot in the database
         assert documentId != null;
-        FirebaseFirestore.getInstance()
-                .collection("users")
+        db.collection("users")
                 .document(uid)
                 .collection("favourites")
                 .document(documentId)
                 .update("plot", newPlot)
                 .addOnSuccessListener(aVoid -> {
-                    binding.plotView.setText("Add a plot"); // update UI
+                    binding.plotView.setText(newPlot); // update UI
                     Toast.makeText(this, "Plot updated", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
                 })

@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
@@ -46,8 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("LoginDebug", "Login button clicked");
-                signIn("shun@gmail.com", "123456");
+                String email = Objects.requireNonNull(binding.emailInput.getText()).toString();
+                String password = Objects.requireNonNull(binding.passwordInput.getText()).toString();
+                signIn(email, password);
             }
         });
     }

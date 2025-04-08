@@ -1,7 +1,9 @@
 package com.example.moviesearchassignment.View;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.example.moviesearchassignment.Models.MovieRecyclerViewInterface;
 import com.example.moviesearchassignment.ViewModels.MovieViewModel;
 import com.example.moviesearchassignment.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,14 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private MovieViewModel viewModel;
     private final List<MovieExtraInfo> currentMovies = new ArrayList<>();
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -59,6 +67,21 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         viewModel.getErrorMessage().observe(this, error -> {
             Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
         });
+
+//        Greeting the user
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("users")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    if (doc.exists()) {
+                        binding.titleView.setText("Hello,\n" + doc.getString("username"));
+                        String username = doc.getString("username");
+                        Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
 //        onClickListener for when the search button is clicked with the search fields is filled
         binding.searchBtn.setOnClickListener(v -> {

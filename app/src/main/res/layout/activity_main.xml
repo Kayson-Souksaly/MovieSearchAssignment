@@ -6,8 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.MainActivity"
-    android:background="@color/sailorBlue">
+    android:background="@drawable/bg_gradient">
 
+    <!--    Logo    -->
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="264dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="40dp"
+        android:shadowColor="@color/charcoal"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
     <!--    App Title    -->
 
@@ -15,19 +29,18 @@
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="20dp"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="2"
         android:shadowColor="@color/charcoal"
         android:text="Movie Search"
-        android:textColor="@color/mint"
+        android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/logoView" />
 
     <!--    SearchBar    -->
     <EditText
@@ -75,7 +88,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomLayout"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="60dp"
         android:background="@color/sailorBlue"
         app:layout_constraintTop_toBottomOf="@id/movieRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +119,7 @@
             android:backgroundTint="@color/mint"
             android:textColor="@color/sailorBlue"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

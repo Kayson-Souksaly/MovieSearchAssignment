@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#002B5B"
+    android:background="@color/sailorBlue"
     android:padding="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +13,7 @@
 
         <!-- Movie Poster -->
         <ImageView
+            android:layout_marginTop="100dp"
             android:id="@+id/posterView"
             android:layout_width="0dp"
             android:layout_height="200dp"
@@ -23,8 +24,6 @@
             android:src="@drawable/placeholder" />
 
         <!-- Title -->
-
-        <!-- Year -->
         <TextView
             android:id="@+id/titleView"
             android:layout_width="0dp"
@@ -39,6 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/posterView" />
 
+        <!-- Released -->
         <TextView
             android:id="@+id/releasedView"
             android:layout_width="wrap_content"
