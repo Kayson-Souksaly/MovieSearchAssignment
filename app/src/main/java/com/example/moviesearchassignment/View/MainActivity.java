@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
         });
+
     }
 
 //    Intent listener for when the card is clicked

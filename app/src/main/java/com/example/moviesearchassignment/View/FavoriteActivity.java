@@ -3,6 +3,7 @@ package com.example.moviesearchassignment.View;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +63,15 @@ public class FavoriteActivity extends AppCompatActivity implements MovieRecycler
         String uid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         viewModel.fetchFavoriteMovies(uid);
+
+        //back to MainActivity section
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FavoriteActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
